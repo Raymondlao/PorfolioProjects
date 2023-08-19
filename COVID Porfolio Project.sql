@@ -1,3 +1,6 @@
+-- SQL Data Exploration Project 
+-- Goal: To analyze data on Covid from the WHO (World Health Organization)
+
 SELECT *
 FROM coviddeaths
 
