@@ -1,0 +1,29 @@
+Los Angeles Listing Raw Data found - http://insideairbnb.com/get-the-data/
+
+Raw Data - https://docs.google.com/spreadsheets/d/1r8JY1zQ5EnLzN9_PbO_AFpRX4gxyF8IjoEuuG0sF1Qg/edit#gid=2080611977 
+Cleaned Data - https://docs.google.com/spreadsheets/d/1KqG_rjpCM_auWF98FWKTYG3eyaaJU4TrwEhqrJZNByE/edit#gid=562897066
+
+Process 
+1. =SUBSTITUTE(A1, "'", "")
+Function used to remove the extra "‘" from columns & rows
+
+2. =IF(ISNUMBER(SEARCH(" bath", A1)), MID(A1, SEARCH(" bath", A1) - 3, 1), "")
+Function used to separate number of baths from Name column
+
+3. =IF(ISNUMBER(SEARCH("beds", A1)), MID(A1, SEARCH("beds", A1) - 2, 1), "")
+Function used to separate number of bedrooms from Name column
+
+4. =MID(A1,1,SEARCH(" ",A1)-1)
+Function used to separate unit from the Name column  
+
+5. =MID(A1, FIND("in ", A1) + 3, SEARCH(" ·", A1) - (FIND("in ", A1) + 3))
+Function used to separated city from the Name column 
+
+6. =IFERROR(VALUE(REGEXEXTRACT(A1, "(\d+(\.\d+)?)\s+private\s+bath"))
+Function used to extract the number of baths for private baths
+
+7. =IFERROR(VALUE(REGEXEXTRACT(A1, "(\d+(\.\d+)?)\s+shared\s+bath"))
+Function used to extract the number of baths for shared baths
+
+8. =IFERROR(VALUE(REGEXEXTRACT(A1, "\b(\d+(\.\d+)?)\s+bath"))
+Function used to extract the number of baths for baths
